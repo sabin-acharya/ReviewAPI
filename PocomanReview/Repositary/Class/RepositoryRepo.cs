@@ -75,22 +75,29 @@ namespace Shopping.Repository.Class
 
         decimal IRepositoryRepo<T>.GetRating(int id)
         {
-            T entity = _dbSet.Find(id);
+            var entity = _context.Set<T>().Find(id);
 
-            if (entity == null)
+            if (entity != null)
             {
-                throw new InvalidOperationException($"Entity with ID {id} not found.");
+                return 0;
             }
 
-            // Replace 'RatingProperty' with the actual property name for the rating in TEntity
-            PropertyInfo ratingProperty = typeof(T).GetProperty("RatingProperty");
+            decimal averageRating = 0;
 
-            if (ratingProperty == null || ratingProperty.PropertyType != typeof(decimal))
+            // Assume your entity has a property named 'Rating' of type decimal
+            PropertyInfo ratingProperty = typeof(T).GetProperty("Rating");
+
+            if (ratingProperty != null && ratingProperty.PropertyType == typeof(decimal))
             {
-                throw new InvalidOperationException($"Entity of type {typeof(T)} does not have a valid 'RatingProperty'.");
+                var ratings = _context.Set<T>().Select(e => (decimal)ratingProperty.GetValue(e));
+
+                if (ratings.Any())
+                {
+                    averageRating = ratings.Average();
+                }
             }
 
-            return (decimal)ratingProperty.GetValue(entity);
+            return averageRating;
         }
 
         void IRepositoryRepo<T>.Update(T entity)
