@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PocomanReview.Models;
+using MoviesReview.Models;
 
-namespace PocomanReview.Data
+namespace MoviesReview.Data
 {
     public class ApplicationDbContext : DbContext
     {

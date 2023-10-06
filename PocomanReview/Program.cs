@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using PocomanReview.Data;
-using PocomanReview.Repositary.Interface;
-using PokemonReviewApp;
-using Shopping.Repository.Class;
+using MoviesReview.Data;
+using MoviesReview.Repositary.Interface;
+using MoviesReview;
+using MoviesReview.Repository.Class;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -12,6 +12,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<Seed>();
 
 //Register UnitOfWork
@@ -37,11 +38,11 @@ void SeedData(IHost app)
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+
+ app.UseSwagger();
+ app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 

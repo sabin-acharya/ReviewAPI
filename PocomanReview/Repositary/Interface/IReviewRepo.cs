@@ -1,7 +1,6 @@
-﻿using PocomanReview.Models;
-using Shopping.Repository.Interface;
-
-namespace PocomanReview.Repositary.Interface
+﻿using MoviesReview.Models;
+using MoviesReview.Repository.Interface;
+namespace MoviesReview.Repositary.Interface
 {
     public interface IReviewRepo : IRepositoryRepo<ReviewModel>
     {

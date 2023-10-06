@@ -1,4 +1,4 @@
-﻿namespace PocomanReview.Repositary.Interface
+﻿namespace MoviesReview.Repositary.Interface
 {
     public interface IUnitOfWorkRepo
     {

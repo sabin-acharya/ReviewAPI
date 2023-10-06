@@ -1,12 +1,12 @@
-﻿using PocomanReview.Data;
+﻿using MoviesReview.Data;
 
 
-using PocomanReview.Migrations;
-using PocomanReview.Repositary.Interface;
+using MoviesReview.Migrations;
+using MoviesReview.Repositary.Interface;
 
-using PocomanReview.Repositary.Class;
+using MoviesReview.Repositary.Class;
 
-namespace Shopping.Repository.Class
+namespace MoviesReview.Repository.Class
 {
     public class UnitOfWorkRepo : IUnitOfWorkRepo
     {

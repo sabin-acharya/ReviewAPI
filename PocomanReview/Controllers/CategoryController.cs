@@ -8,49 +8,50 @@ namespace MoviesReview.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PokemonController : ControllerBase
+    public class CategoryController : ControllerBase
     {
 
         private readonly IUnitOfWorkRepo _unitofwork;
         private readonly IMapper _mapper;
-        public PokemonController(IUnitOfWorkRepo unitofwork, IMapper Mapper)
+        public CategoryController(IUnitOfWorkRepo unitofwork, IMapper Mapper)
         {
             _unitofwork = unitofwork;
             _mapper = Mapper;
         }
 
         [HttpGet]
-        public IActionResult GetPokemon()
+        public IActionResult GetCategory()
         {
-            var pokemon = _mapper.Map<List<PokemonDTO>>(_unitofwork.Pokemon.GetAll());
+            var categroy = _mapper.Map<List<CategoryDTO>>(_unitofwork.Category.GetAll());
             if (!ModelState.IsValid)
             {
                 return BadRequest();
 
             }
-            return Ok(pokemon);
+            return Ok(categroy);
         }
 
         [HttpGet("Id")]
-        public IActionResult GetPokemonById(int id)
+        public IActionResult GetCategoryById(int id)
         {
-            var pokemon = _mapper.Map<List<PokemonDTO>>(_unitofwork.Pokemon.GetT(x => x.Id == id));
+
+            var category = _mapper.Map<List<CategoryDTO>>(_unitofwork.Category.GetT(x => x.Id == id));
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            return Ok(pokemon);
+            return Ok(category);
         }
 
-        [HttpGet("Id/rating")]
-        public IActionResult Getrating(int id) 
+        [HttpGet("categoryId")]
+        public IActionResult GetPokemonByCategory(int categoryId) 
         {
-            var rating = _unitofwork.Pokemon.GetRating(id);
+            var pokemonbycategory = _mapper.Map<List<PokemonDTO>>(_unitofwork.Category.GetPokemonByCategory(categoryId));
             if(!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            return Ok(rating);
+            return Ok(pokemonbycategory);
         }
     }
 }

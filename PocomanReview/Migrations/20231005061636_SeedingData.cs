@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace PocomanReview.Migrations
+namespace MoviesReview.Migrations
 {
     /// <inheritdoc />
     public partial class SeedingData : Migration

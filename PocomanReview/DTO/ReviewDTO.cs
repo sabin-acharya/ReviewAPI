@@ -1,6 +1,6 @@
-﻿namespace MoviesReview.Models
+﻿namespace MoviesReview.DTO
 {
-    public class ReviewModel
+    public class ReviewDTO
     {
         public int Id { get; set; }
 
@@ -9,9 +9,5 @@
         public string Text { get; set; }
 
         public int Rating { get; set; }
-        public ReviewerModel Reviewer { get; set; }
-
-        public PokemonModel? Pokemon { get; set; }
-
     }
 }

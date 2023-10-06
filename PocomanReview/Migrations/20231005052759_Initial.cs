@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace PocomanReview.Migrations
+namespace MoviesReview.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

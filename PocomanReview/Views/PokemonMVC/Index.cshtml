@@ -1,0 +1,66 @@
+﻿@model PocomanReview.DTO.PokemonDTO
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Create</h2>
+
+<div class="container mt-5">
+    <form asp-action="Index" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="text-primary">
+                    @if (Model.Id == null || Model.Id == 0)
+                    {
+                        <span>Add Pokemon</span>
+                    }
+                    else
+                    {
+                        <span>Update Pokemon</span>
+                    }
+                </h2>
+            </div>
+
+            <!-- Left Column: Form Input Fields -->
+            <div class="col-md-6">
+                <input type="hidden" asp-for="Id" />
+             
+                <div asp-validation-summary="All"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"> Name</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="BirthDate" class="form-label">BirthDate</label>
+                    <input asp-for="BirthDate" class="form-control" />
+                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                </div>
+
+                
+                <div class="text-center">
+                    @if (( Model.Id == 0))
+                    {
+                        <button type="submit" class="btn btn-primary btn-lg">Create</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                    }
+
+                    <a asp-controller="Product" asp-action="ProductIndex" class="btn btn-secondary btn-lg ml-2">
+                        Back to List
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: Image Preview -->
+            @* <div class="col-md-6">
+                <img id="selectedImage" src="@Model.Product.ImageUrl" alt="Selected Image" class="img-thumbnail" style="max-width: 100%; height: auto;" />
+            </div> *@
+        </div>
+    </form>
+</div>

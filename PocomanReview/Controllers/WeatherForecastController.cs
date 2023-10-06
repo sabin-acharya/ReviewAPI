@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace PocomanReview.Controllers
+namespace MoviesReview.Controllers
 {
     [ApiController]
     [Route("[controller]")]

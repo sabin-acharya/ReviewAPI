@@ -1,4 +1,4 @@
-﻿namespace PocomanReview.Models
+﻿namespace MoviesReview.Models
 {
     public class PokemonCategoryModel
     {

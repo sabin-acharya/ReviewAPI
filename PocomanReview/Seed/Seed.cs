@@ -1,8 +1,8 @@
-﻿using PocomanReview.Models;
-using PocomanReview.Data;
+﻿using MoviesReview.Models;
+using MoviesReview.Data;
 
 
-namespace PokemonReviewApp
+namespace MoviesReview
 {
     public class Seed
     {

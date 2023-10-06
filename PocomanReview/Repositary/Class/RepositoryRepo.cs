@@ -1,18 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PocomanReview.Data;
-using Shopping.Repository.Interface;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using MoviesReview.Data;
+using MoviesReview.Models;
+using MoviesReview.Repository.Interface;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Shopping.Repository.Class
+namespace MoviesReview.Repository.Class
 {
     public class RepositoryRepo<T> : IRepositoryRepo<T> where T : class
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<T> _dbSet;
+       
 
         public RepositoryRepo(ApplicationDbContext context)
         {
+            IMapper _mapper;
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _dbSet = _context.Set<T>();
         }
@@ -73,33 +77,16 @@ namespace Shopping.Repository.Class
             return query.FirstOrDefault();
         }
 
-        decimal IRepositoryRepo<T>.GetRating(int id)
+        decimal IRepositoryRepo<T>.GetRating(int entityId)
         {
-            var entity = _context.Set<T>().Find(id);
-
-            if (entity != null)
+            var review = _context.Reviews.ToList();
+            if(review.Count() <= 0)
             {
                 return 0;
             }
+            return ((decimal)review.Sum(r => r.Rating) / review.Count());
 
-            decimal averageRating = 0;
-
-            // Assume your entity has a property named 'Rating' of type decimal
-            PropertyInfo ratingProperty = typeof(T).GetProperty("Rating");
-
-            if (ratingProperty != null && ratingProperty.PropertyType == typeof(decimal))
-            {
-                var ratings = _context.Set<T>().Select(e => (decimal)ratingProperty.GetValue(e));
-
-                if (ratings.Any())
-                {
-                    averageRating = ratings.Average();
-                }
-            }
-
-            return averageRating;
         }
-
         void IRepositoryRepo<T>.Update(T entity)
         {
             _dbSet.Attach(entity);

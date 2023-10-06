@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Shopping.Repository.Interface
+namespace MoviesReview.Repository.Interface
 {
 
     public interface IRepositoryRepo<T> where T : class

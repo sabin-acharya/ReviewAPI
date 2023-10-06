@@ -1,9 +1,9 @@
-﻿using PocomanReview.Data;
-using PocomanReview.Models;
-using PocomanReview.Repositary.Interface;
-using Shopping.Repository.Class;
+﻿using MoviesReview.Data;
+using MoviesReview.Models;
+using MoviesReview.Repositary.Interface;
+using MoviesReview.Repository.Class;
 
-namespace PocomanReview.Repositary.Class
+namespace MoviesReview.Repositary.Class
 {
     public class CountryRepo : RepositoryRepo<CountryModel>, ICountryRepo
     {

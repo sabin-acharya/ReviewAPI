@@ -1,4 +1,4 @@
-namespace PocomanReview
+namespace MoviesReview
 {
     public class WeatherForecast
     {
