@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PocomanReview.Data;
+using MoviesReview.Data;
 
 #nullable disable
 
-namespace PocomanReview.Migrations
+namespace MoviesReview.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20231006105946_AddedDTO")]

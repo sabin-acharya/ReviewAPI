@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using MoviesReview.DTO;
+using MoviesReview.Models;
 using MoviesReview.Repositary.Interface;
 
 namespace MoviesReview.Controllers
@@ -43,14 +45,40 @@ namespace MoviesReview.Controllers
         }
 
         [HttpGet("Id/rating")]
-        public IActionResult Getrating(int id) 
+        public IActionResult Getrating(int id)
         {
             var rating = _unitofwork.Pokemon.GetRating(id);
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
             return Ok(rating);
+        }
+
+        [HttpPost]
+        public IActionResult CreatePokemon(PokemonDTO pdto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var pokemon = _unitofwork.Pokemon.GetAll().Where(x=>x.Id == pdto.Id).FirstOrDefault();
+
+            if (pokemon != null)
+            {
+                ModelState.AddModelError("", "Already exist");
+                return StatusCode(422, ModelState);
+            }
+            var pdtomap = _mapper.Map<PokemonModel>(pdto);
+            _unitofwork.Pokemon.Add(pdtomap);
+            _unitofwork.Save();
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Error while saiving the data");
+                return StatusCode(500, ModelState);
+            }
+            return Ok();
         }
     }
 }

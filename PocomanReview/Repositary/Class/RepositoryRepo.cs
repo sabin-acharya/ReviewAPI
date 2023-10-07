@@ -24,6 +24,7 @@ namespace MoviesReview.Repository.Class
         public void Add(T entity)
         {
             _dbSet.Add(entity);
+            
         }
 
         public void Delete(T entity)

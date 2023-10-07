@@ -41,8 +41,6 @@ namespace MoviesReview.Data
                .WithMany(PC => PC.PokemonCategory)
                .HasForeignKey(C => C.CategoryId);
 
-
-
             // PokemonOwner
 
             Builder.Entity<PokemonOwnerModel>()
