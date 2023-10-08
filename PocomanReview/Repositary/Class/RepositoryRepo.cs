@@ -29,7 +29,7 @@ namespace MoviesReview.Repository.Class
 
         public void Delete(T entity)
         {
-            _dbSet?.Remove(entity);
+            _dbSet.Remove(entity);
         }
 
         public void DeleteRange(IEnumerable<T> entities)
@@ -92,7 +92,7 @@ namespace MoviesReview.Repository.Class
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChanges();
+            
         }
     }
 }

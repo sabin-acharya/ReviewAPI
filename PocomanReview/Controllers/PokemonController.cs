@@ -36,12 +36,15 @@ namespace MoviesReview.Controllers
         [HttpGet("Id")]
         public IActionResult GetPokemonById(int id)
         {
-            var pokemon = _mapper.Map<List<PokemonDTO>>(_unitofwork.Pokemon.GetT(x => x.Id == id));
-            if (!ModelState.IsValid)
+            var pokemonModel = _unitofwork.Pokemon.GetT(x => x.Id == id);
+            if (pokemonModel == null)
             {
-                return BadRequest();
+                return NotFound();
             }
-            return Ok(pokemon);
+
+            var pokemonDTO = _mapper.Map<PokemonDTO>(pokemonModel);
+
+            return Ok(pokemonDTO);
         }
 
         [HttpGet("Id/rating")]
@@ -79,6 +82,62 @@ namespace MoviesReview.Controllers
                 return StatusCode(500, ModelState);
             }
             return Ok();
+        }
+
+        [HttpPut("Id")]
+        public IActionResult EditPokemon(PokemonDTO pdto, int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var pokemon = _unitofwork.Pokemon.GetT(x => x.Id == id);
+            if (pokemon != null)
+            {
+                pokemon.Name = pdto.Name;
+                pokemon.BirthDate = pdto.BirthDate;
+            }
+            _unitofwork.Pokemon.Update(pokemon);
+            _unitofwork.Save();
+
+            if (pokemon == null)
+            {
+                ModelState.AddModelError("", "Doesn't exist");
+                return StatusCode(422, ModelState);
+            }
+            var pdtomap = _mapper.Map<PokemonDTO>(pokemon);
+           
+            
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Error while saiving the data");
+                return StatusCode(500, ModelState);
+            }
+            return Ok();
+        }
+
+
+        [HttpDelete("Id")]
+        public IActionResult DeletePokemon( int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var pokemon = _unitofwork.Pokemon.GetT(x => x.Id == id);
+            _unitofwork.Pokemon.Delete(pokemon);
+            if (pokemon == null)
+            {
+                return NotFound("Pokemon with the specified ID does not exist.");
+            }
+
+            
+            
+
+            return Ok();
+
         }
     }
 }
