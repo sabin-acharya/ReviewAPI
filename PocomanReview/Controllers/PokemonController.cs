@@ -118,26 +118,21 @@ namespace MoviesReview.Controllers
         }
 
 
-        [HttpDelete("Id")]
-        public IActionResult DeletePokemon( int id)
+        [HttpDelete("{id}")]
+        public IActionResult DeletePokemon(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var pokemon = _unitofwork.Pokemon.GetT(x => x.Id == id);
-            _unitofwork.Pokemon.Delete(pokemon);
+
             if (pokemon == null)
             {
                 return NotFound("Pokemon with the specified ID does not exist.");
             }
 
+            _unitofwork.Pokemon.Delete(pokemon);
             
-            
-
+            _unitofwork.Save();
             return Ok();
-
         }
+
     }
 }
